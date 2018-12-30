@@ -46,6 +46,6 @@ class Token(Enum):
 DFA = (
     {
         'type': Token.COMMA,
-        'stm':
+        'stm': None
     }
 )
