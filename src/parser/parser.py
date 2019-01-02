@@ -28,6 +28,25 @@ from .grammar import NonTerminals, Terminals
 
 class Parser(object):
 
+    def __init__(self, token_stream):
+        self.token_stream = token_stream
+        self.grammar_tree = Parser.program(token_stream)
+
+    def get_grammar_tree(self):
+        return self.grammar_tree
+
+    @staticmethod
+    def print_grammmar_tree(tree, level=0):
+        if tree is None:
+            print('  ' * level + str(tree))
+            return
+        if type(tree[0]) == Terminals:
+            print('  ' * level + str(tree[0]) + ' -- ' + str(tree[1]))
+        else:
+            print('  ' * level + str(tree[0]))
+            for i in tree[1]:
+                Parser.print_grammmar_tree(i, level + 1)
+
     @staticmethod
     def map_non_terminals_to_func(non_terminals):
         if non_terminals == NonTerminals.PROGRAM:
@@ -65,6 +84,7 @@ class Parser(object):
                 if tree is None:
                     return None
                 sub_tree.append(tree)
+                sub_tree.append((Terminals.SEMICOLON, token))
                 token_buffer = []
             else:
                 token_buffer.append(token)

@@ -129,10 +129,10 @@ class Lexer(object):
         return output_queue_copy
 
     def get_source_code(self):
-        return self.source_code
+        return self.source_code.copy()
 
     def get_err_token(self):
-        return self.err_token
+        return self.err_token.copy()
 
     # 重置为初始状态
     def clear(self):
