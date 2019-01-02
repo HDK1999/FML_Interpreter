@@ -339,7 +339,7 @@ DFA_DATA = (
         'type': Token.ERR_TOKEN,
         'as_set': {0, 1},
         'stm': {
-            SpecificCharSet.ANY:   (1,      1),
+            SpecificCharSet.ANY:   (1,    1),
             SpecificCharSet.BLANK: (None, None)
         }
     }
