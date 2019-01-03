@@ -87,6 +87,32 @@ class Semantic(object):
                 self.operation_queue.append((Operation.DRAW, x, y))
                 i += step
 
+        elif grammar_tree[0] == NonTerminals.COLOR_STATEMENT:
+            if len(grammar_tree[1]) != 9:
+                self.operation_queue.append((Operation.EMPTY, ))
+                return
+            r = self.analyse(grammar_tree[1][3])
+            g = self.analyse(grammar_tree[1][5])
+            b = self.analyse(grammar_tree[1][7])
+            if type(r) not in (int, float) or type(g) not in (int, float) or type(b) not in (int, float):
+                self.operation_queue.append((Operation.EMPTY, ))
+                return
+            self.operation_queue.append((Operation.SET_COLOR, r, g, b))
+            return
+
+        elif grammar_tree[0] == NonTerminals.BG_STATEMENT:
+            if len(grammar_tree[1]) != 9:
+                self.operation_queue.append((Operation.EMPTY, ))
+                return
+            r = self.analyse(grammar_tree[1][3])
+            g = self.analyse(grammar_tree[1][5])
+            b = self.analyse(grammar_tree[1][7])
+            if type(r) not in (int, float) or type(g) not in (int, float) or type(b) not in (int, float):
+                self.operation_queue.append((Operation.EMPTY, ))
+                return
+            self.operation_queue.append((Operation.SET_BG, r, g, b))
+            return
+
         elif grammar_tree[0] == NonTerminals.EXPRESSION:
             return Semantic.expression_calc(grammar_tree)
         elif grammar_tree[0] == Terminals.SEMICOLON:
@@ -174,5 +200,7 @@ class Operation(Enum):
     SET_ORIGIN = 1
     SET_SCALE = 2
     SET_ROT = 3
-    DRAW = 4
-    EMPTY = 5  # 空操作，表示无法识别的语义
+    SET_COLOR = 4
+    SET_BG = 5
+    DRAW = 6
+    EMPTY = 7  # 空操作，表示无法识别的语义

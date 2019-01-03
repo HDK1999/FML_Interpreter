@@ -1,6 +1,7 @@
-from .dfa import *
+from .dfa import DFA, DFA_DATA, Token, SpecificCharSet
 
 
+# 词法分析器
 class Lexer(object):
     def __init__(self):
         # 初始化 DFA 集合

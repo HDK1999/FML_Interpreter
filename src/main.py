@@ -1,13 +1,13 @@
 from lexer import Lexer
-from fml_parser import Parser, Terminals
+from fml_parser import Parser
 from semantic import Semantic
 from actuator import Actuator
 import sys
 
 for argc in sys.argv[1:]:
     if argc in ('-h', '-H', '--help'):
-        print('keybrl-fml v0.0.1')
-        print('Usage: ./keybrl-fml [option] [input_file] [output_file] ...')
+        print('FML v0.0.1')
+        print('Usage: ./fml [option] [input_file] [output_file] ...')
         print('Options:')
         print('-h, -H, --help     Print this message and exit.')
         print('-v, -V, --version  Print the version number of fml and exit.')
@@ -15,29 +15,29 @@ for argc in sys.argv[1:]:
         print('Report bugs to <keyboard-l@outlook.com>')
         sys.exit()
     elif argc in ('-v', '-V', '--version'):
-        print('keybrl-fml v0.0.1')
+        print('FML v0.0.1')
         sys.exit()
 
 
-input_file = ''
-output_file = ''
-if len(sys.argv) <= 1:
-    input_file = input('Input File: ')
-    output_file = input('Output File (Press ENTER to skip, and `whatever.png` as default): ')
-    if len(output_file) == 0:
-        output_file = 'whatever.png'
-elif len(sys.argv) >= 2:
-    input_file = sys.argv[1]
-    if len(sys.argv) >= 3:
-        output_file = sys.argv[2]
-    else:
-        if input_file[-4:].lower() == '.fml':
-            output_file = input_file[:-4] + '.png'
-        else:
-            output_file = input_file + '.png'
-
-if output_file[-4:].lower() != '.png':
-        output_file += '.png'
+input_file = '../test_data/ubuntu_logo.fml'
+output_file = '../test_data/ubuntu_logo.png'
+# if len(sys.argv) <= 1:
+#     input_file = input('Input File: ')
+#     output_file = input('Output File (Press ENTER to skip, and `whatever.png` as default): ')
+#     if len(output_file) == 0:
+#         output_file = 'whatever.png'
+# elif len(sys.argv) >= 2:
+#     input_file = sys.argv[1]
+#     if len(sys.argv) >= 3:
+#         output_file = sys.argv[2]
+#     else:
+#         if input_file[-4:].lower() == '.fml':
+#             output_file = input_file[:-4] + '.png'
+#         else:
+#             output_file = input_file + '.png'
+#
+# if output_file[-4:].lower() != '.png':
+#         output_file += '.png'
 
 
 # 词法分析

@@ -3,11 +3,13 @@
 #
 # Program -> { Statement SEMICOLON }
 #
-# Statement -> OriginStatement | ScaleStatement | RotStatement | ForStatement
+# Statement -> OriginStatement | ScaleStatement | RotStatement | ForStatement | ColorStatement | BgStatement
 #
 # OriginStatement -> ORIGIN IS L_BRACKET Expression COMMA Expression R_BRACKET
 # ScaleStatement -> SCALE IS L_BRACKET Expression COMMA Expression R_BRACKET
 # RotStatement -> ROT IS Expression
+# ColorStatement -> COLOR IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
+# BgStatement -> BACKGROUND IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
 # ForStatement -> FOR T
 #                 FROM Expression
 #                 TO Expression
@@ -35,6 +37,8 @@ class NonTerminals(Enum):
     SCALE_STATEMENT = 12
     ROT_STATEMENT = 13
     FOR_STATEMENT = 14
+    COLOR_STATEMENT = 15
+    BG_STATEMENT = 16
 
     EXPRESSION = 2
     TERM = 21
@@ -48,6 +52,8 @@ class Terminals(Enum):
     ORIGIN = Token.ORIGIN
     SCALE = Token.SCALE
     ROT = Token.ROT
+    COLOR = Token.COLOR
+    BACKGROUND = Token.BACKGROUND
 
     IS = Token.IS
     FOR = Token.FOR

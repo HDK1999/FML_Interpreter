@@ -94,6 +94,8 @@ class Token(Enum):
     DRAW = 7
     FOR = 8
     FROM = 9
+    COLOR = 10
+    BACKGROUND = 11
 
     # 分隔符
     SEMICOLON = 21  # 分号
@@ -223,6 +225,32 @@ DFA_DATA = (
             'o':                   (None, None, 3,    None, None, None),
             'm':                   (None, None, None, 4,    None, None),
             SpecificCharSet.BLANK: (None, None, None, None, 5,    None)
+        }
+    }, {
+        'type': Token.COLOR,
+        'as_set': {6, },
+        'stm': {
+            'c':                   (1,    None, None, None, None, None, None),
+            'o':                   (None, 2,    None, 4,    None, None, None),
+            'l':                   (None, None, 3,    None, None, None, None),
+            'r':                   (None, None, None, None, 5,    None, None),
+            SpecificCharSet.BLANK: (None, None, None, None, None, 6,    None)
+        }
+    }, {
+        'type': Token.BACKGROUND,
+        'as_set': {11, },
+        'stm': {
+            'b':                   (1,    None, None, None, None, None, None, None, None, None, None, None),
+            'a':                   (None, 2,    None, None, None, None, None, None, None, None, None, None),
+            'c':                   (None, None, 3,    None, None, None, None, None, None, None, None, None),
+            'k':                   (None, None, None, 4,    None, None, None, None, None, None, None, None),
+            'g':                   (None, None, None, None, 5,    None, None, None, None, None, None, None),
+            'r':                   (None, None, None, None, None, 6,    None, None, None, None, None, None),
+            'o':                   (None, None, None, None, None, None, 7,    None, None, None, None, None),
+            'u':                   (None, None, None, None, None, None, None, 8,    None, None, None, None),
+            'n':                   (None, None, None, None, None, None, None, None, 9,    None, None, None),
+            'd':                   (None, None, None, None, None, None, None, None, None, 10,   None, None),
+            SpecificCharSet.BLANK: (None, None, None, None, None, None, None, None, None, None, 11,   None)
         }
     },
 

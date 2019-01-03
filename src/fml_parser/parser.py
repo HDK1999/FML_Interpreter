@@ -3,11 +3,13 @@
 #
 # Program -> { Statement SEMICOLON }
 #
-# Statement -> OriginStatement | ScaleStatement | RotStatement | ForStatement
+# Statement -> OriginStatement | ScaleStatement | RotStatement | ForStatement | ColorStatement | BgStatement
 #
 # OriginStatement -> ORIGIN IS L_BRACKET Expression COMMA Expression R_BRACKET
 # ScaleStatement -> SCALE IS L_BRACKET Expression COMMA Expression R_BRACKET
 # RotStatement -> ROT IS Expression
+# ColorStatement -> COLOR IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
+# BgStatement -> BACKGROUND IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
 # ForStatement -> FOR T
 #                 FROM Expression
 #                 TO Expression
@@ -26,6 +28,7 @@
 from .grammar import NonTerminals, Terminals
 
 
+# 语法分析器
 class Parser(object):
 
     def __init__(self, token_stream):
@@ -74,6 +77,7 @@ class Parser(object):
         else:
             return None
 
+    # Program -> { Statement SEMICOLON }
     @staticmethod
     def program(token_stream):
         sub_tree = []
@@ -90,13 +94,16 @@ class Parser(object):
                 token_buffer.append(token)
         return NonTerminals.PROGRAM, tuple(sub_tree)
 
+    # Statement -> OriginStatement | ScaleStatement | RotStatement | ForStatement | ColorStatement | BgStatement
     @staticmethod
     def statement(token_stream):
         cases = (
             Parser.origin_statement,
             Parser.scale_statement,
             Parser.rot_statement,
-            Parser.for_statement
+            Parser.for_statement,
+            Parser.color_statement,
+            Parser.bg_statement
         )
         for case in cases:
             tree = case(token_stream)
@@ -105,6 +112,7 @@ class Parser(object):
         else:
             return None
 
+    # OriginStatement -> ORIGIN IS L_BRACKET Expression COMMA Expression R_BRACKET
     @staticmethod
     def origin_statement(token_stream):
         expect_sentence = (
@@ -114,6 +122,7 @@ class Parser(object):
 
         return Parser.seq_statement_template(NonTerminals.ORIGIN_STATEMENT, expect_sentence, token_stream)
 
+    # ScaleStatement -> SCALE IS L_BRACKET Expression COMMA Expression R_BRACKET
     @staticmethod
     def scale_statement(token_stream):
         expect_sentence = (
@@ -123,6 +132,7 @@ class Parser(object):
 
         return Parser.seq_statement_template(NonTerminals.SCALE_STATEMENT, expect_sentence, token_stream)
 
+    # RotStatement -> ROT IS Expression
     @staticmethod
     def rot_statement(token_stream):
         expect_sentence = (
@@ -131,6 +141,35 @@ class Parser(object):
 
         return Parser.seq_statement_template(NonTerminals.ROT_STATEMENT, expect_sentence, token_stream)
 
+    # ColorStatement -> COLOR IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
+    @staticmethod
+    def color_statement(token_stream):
+        expect_sentence = (
+            Terminals.COLOR, Terminals.IS, Terminals.L_BRACKET,
+            NonTerminals.EXPRESSION, Terminals.COMMA,
+            NonTerminals.EXPRESSION, Terminals.COMMA,
+            NonTerminals.EXPRESSION, Terminals.R_BRACKET
+        )
+
+        return Parser.seq_statement_template(NonTerminals.COLOR_STATEMENT, expect_sentence, token_stream)
+
+    # BgStatement -> BACKGROUND IS L_BRACKET Expression COMMA Expression COMMA Expression R_BRACKET
+    @staticmethod
+    def bg_statement(token_stream):
+        expect_sentence = (
+            Terminals.BACKGROUND, Terminals.IS, Terminals.L_BRACKET,
+            NonTerminals.EXPRESSION, Terminals.COMMA,
+            NonTerminals.EXPRESSION, Terminals.COMMA,
+            NonTerminals.EXPRESSION, Terminals.R_BRACKET
+        )
+
+        return Parser.seq_statement_template(NonTerminals.BG_STATEMENT, expect_sentence, token_stream)
+
+    # ForStatement -> FOR T
+    #                 FROM Expression
+    #                 TO Expression
+    #                 STEP Expression
+    #                 DRAW L_BRACKET Expression COMMA Expression R_BRACKET
     @staticmethod
     def for_statement(token_stream):
         expect_sentence = (
