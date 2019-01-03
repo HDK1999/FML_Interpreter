@@ -4,13 +4,14 @@ from semantic import Operation
 
 
 class Actuator(object):
-    def __init__(self):
+    def __init__(self, filename):
         self.origin = (0, 0)
         self.scale = [1, 1]
         self.rot = 0
         self.points = []
         self.image = None
         self.operation_queue = []
+        self.filename = filename
 
     def append(self, operation):
         if type(operation) == tuple and type(operation[0]) == Operation:
@@ -54,9 +55,10 @@ class Actuator(object):
         self.image = Image.new('RGB', (width, height), (255, 255, 255))
         draw = ImageDraw.Draw(self.image)
         for point in self.points:
-            draw.point((point[0] + offect_x, point[1] + offect_y), (0, 0, 255))
+            # print(point[0], point[1])
+            draw.point((point[0] + offect_x, point[1] + offect_y), (24, 55, 40))
 
-        self.image.save('what.png', 'png')
+        self.image.save(self.filename, 'png')
         self.image.show()
 
     def set_origin(self, x, y):

@@ -1,8 +1,11 @@
-//origin is (0, 0);
-//rot is 0;
-scale is (100, 100);
-//for T from 0 to 200 step 1 draw (t, 0);
-//for T from 0 to 150 step 1 draw (0, -t);  // hhh
-//for T from 0 to 120 step 1 draw (t, -t);  // hhh2
-
-FOR T FROM 0 TO 2*PI STEP PI/50 DRAW (COS(T), SIN(t));
+origin is (0, 0);
+rot is 0;
+scale is (1, 1);
+for T from 0 to 200 step 1 draw (t, 0);  // 上边
+rot is -pi / 2;
+for T from 0 to 200 step 1 draw (t, 0);  // 右边
+origin is (200, 0);
+for T from 0 to 200 step 1 draw (t, 0);  // 左边
+origin is (0, 200);
+rot is 0;
+for T from 0 to 200 step 1 draw (t, 0);  // 下边

@@ -1,5 +1,5 @@
 from enum import Enum, unique
-from parser import Terminals, NonTerminals
+from fml_parser import Terminals, NonTerminals
 from math import sin, cos, tan, sqrt, exp, log, pi, e
 
 
