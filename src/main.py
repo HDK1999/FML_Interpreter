@@ -19,25 +19,25 @@ for argc in sys.argv[1:]:
         sys.exit()
 
 
-input_file = '../test_data/ubuntu_logo.fml'
-output_file = '../test_data/ubuntu_logo.png'
-# if len(sys.argv) <= 1:
-#     input_file = input('Input File: ')
-#     output_file = input('Output File (Press ENTER to skip, and `whatever.png` as default): ')
-#     if len(output_file) == 0:
-#         output_file = 'whatever.png'
-# elif len(sys.argv) >= 2:
-#     input_file = sys.argv[1]
-#     if len(sys.argv) >= 3:
-#         output_file = sys.argv[2]
-#     else:
-#         if input_file[-4:].lower() == '.fml':
-#             output_file = input_file[:-4] + '.png'
-#         else:
-#             output_file = input_file + '.png'
-#
-# if output_file[-4:].lower() != '.png':
-#         output_file += '.png'
+input_file = ''
+output_file = ''
+if len(sys.argv) <= 1:
+    input_file = input('Input File: ')
+    output_file = input('Output File (Press ENTER to skip, and `whatever.png` as default): ')
+    if len(output_file) == 0:
+        output_file = 'whatever.png'
+elif len(sys.argv) >= 2:
+    input_file = sys.argv[1]
+    if len(sys.argv) >= 3:
+        output_file = sys.argv[2]
+    else:
+        if input_file[-4:].lower() == '.fml':
+            output_file = input_file[:-4] + '.png'
+        else:
+            output_file = input_file + '.png'
+
+if output_file[-4:].lower() != '.png':
+        output_file += '.png'
 
 
 # 词法分析

@@ -1,6 +1,9 @@
 scale is (200, 200);
-//rot is pi / 2;
-//for t from 0 to 4 * pi step pi / 1000 draw (50 * (2 * cos(t) - cos(2 * t)), 50 * (2 * sin(t) - sin(2 * t)));
-FOR T FROM 0 TO 2 * pi STEP PI/1000 DRAW (sin(6*t)* cos(t), sin(6*t)* sin(t));
+background is (0, 0, 0);  // 设置背景为黑色
+
+color is (0, 255, 0);
+FOR T FROM 0 TO 2 * pi STEP PI/1000 DRAW (sin(6 * t) * cos(t), sin(6 * t) * sin(t));
+
 rot is pi / 12;
-FOR T FROM 0 TO 2 * pi STEP PI/1000 DRAW (sin(6*t)* cos(t), sin(6*t)* sin(t));
+color is (0, 100, 255);
+FOR T FROM 0 TO 2 * pi STEP PI/1000 DRAW (sin(6 * t) * cos(t), sin(6 * t) * sin(t));

@@ -1,4 +1,4 @@
-scale is (5, 5);
+// scale is (5, 5);
 background is (0, 0, 0);
 color is (221, 72, 20);
 for t from 0 to 2 * pi step pi / 1000 draw (0 * cos(t), - 0 * sin(t));
