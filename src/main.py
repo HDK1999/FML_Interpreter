@@ -46,7 +46,7 @@ main_lexer = Lexer()
 with open(input_file, 'r', encoding='utf-8') as file:
     text = 'what'
     while len(text) > 0:
-        text = file.read(1)
+        text = file.read(32)
         main_lexer.append(text)
     main_lexer.append('\n', True)
 
